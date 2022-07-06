@@ -17,7 +17,6 @@ contract GatekeeperTwo {
         assembly {
             x := extcodesize(caller())
         }
-        console.log("external code size:", x);
         require(x == 0);
         console.log("GATE 2 PASSED");
         _;
